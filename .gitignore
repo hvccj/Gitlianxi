@@ -1,0 +1,4 @@
+# 通用忽略项
+Thumbs.db
+.DS_Store
+*.log
