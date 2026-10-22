@@ -1,0 +1,29 @@
+name: My First CI/CD Pipeline
+
+# 触发条件：当你推送到 main 分支时触发
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  # 第一个任务：模拟 CI（持续集成 - 比如运行测试）
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 - 模拟拉取代码
+        run: echo "正在拉取代码..."
+        
+      - name: Step 2 - 模拟运行测试
+        run: echo "正在运行自动化测试... 测试通过！✅"
+
+  # 第二个任务：模拟 CD（持续部署）
+  deploy:
+    # 关键点：必须要等上面的测试任务成功完成后，才执行部署
+    needs: build-and-test 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 - 模拟打包
+        run: echo "正在将代码打包..."
+        
+      - name: Step 2 - 模拟部署上线
+        run: echo "正在部署到服务器... 部署成功！🚀"
