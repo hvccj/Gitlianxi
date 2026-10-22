@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Full CI/CD Pipeline
 
 on:
   push:
@@ -14,7 +14,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # 🌟 任务 1：持续集成 (CI) —— 质量检查关卡
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Linter (代码规范检查)
+        run: npm run lint
+
+      - name: Run Tests (运行自动化测试)
+        run: npm test
+
+  # 🚀 任务 2：持续部署 (CD) —— 只有上面测试通过了，这里才会运行
   deploy:
+    needs: build-and-test # 【关键】依赖上一个任务，它成功我才运行
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -26,7 +49,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
         with:
-          enablement: true # 解决首次运行找不到站点的问题
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
