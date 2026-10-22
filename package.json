@@ -1,0 +1,11 @@
+{
+  "name": "gitlianxi",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "htmlhint index.html",
+    "test": "node test.js"
+  },
+  "devDependencies": {
+    "htmlhint": "^1.1.4"
+  }
+}
