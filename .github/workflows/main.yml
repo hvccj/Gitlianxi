@@ -25,6 +25,8 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        with:
+          enablement: true # 解决首次运行找不到站点的问题
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
